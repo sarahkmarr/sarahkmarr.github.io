@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {background-color:black;color:lightgreen;}
+h1 {text-align:center;}
+h2 {text-align:center;background-color:lightgreen;color:black;}
+a {color:orange;}
+</style>
+</head>
+<body>
+
+<div style="max-width:1000px;margin:0 auto">
+
+<h1>Retrocomputing Pages: Z80-MBC2</h1>
+
+<div style="text-align: center;">
+<img src="retroz80mbc21.jpg">
+</div>
+
+<p>The Z80-MBC2 is a Z80-based computer which uses an ATMega32 microcontroller to mediate IO, memory access, etc. It runs CP/M (amongst other things). You can find out more <a href="https://hackaday.io/project/159973-z80-mbc2-a-4-ics-homebrew-z80-computer">here</a>. Here are a few projects for the machine, designed to run in an 80x24 VT100/ansi terminal.</p>
+<p>I use <a href="https://z88dk.org/site/">z88dk</a> and <a href="https://code.visualstudio.com/">Visual Studio Code</a> to develop for the Z80-MBC2 in C, and <a href="https://www.mathematik.uni-ulm.de/users/ag/yaze-ag/">YAZE-AG</a> to test code before uploading to the Z80-MBC2 for final testing. Other on-Mac software (installed via <a href="https://www.macports.org/">The MacPorts Project</a>): <a href="https://github.com/Swordfish90/cool-retro-term">cool-retro-term</a>, and minicom to provide serial communications and xmodem.</p>
+<p><br></p>
+
+<h2>IOS for Older Z80 Processors</h2>
+<p>Quick download link: <a href="S220718-R240620_IOS-Z80-MBC2-MultiFreq-Final.ino">Old School IOS</a></p>
+<p>The Z80-MBC2 is designed to work with "modern" Z80 chips, which are CMOS and running at 8MHz (with an option to run at 4MHz). <a href="S220718-R240620_IOS-Z80-MBC2-MultiFreq-Final.ino">This</a> is a version of the IOS Arduino sketch S220718-R240620_IOS-Z80-MBC2 which increases the number of available frequency dividers, so that older Z80 chips can be used. (It also implements the serial rx buffer change necessary for using xmodem to transfer files to and from the machine.)</p>
+
+<div style="text-align: center;">
+<img src="retroz80mbc22.jpg">
+</div>
+
+<p>The frequency options are accessed using the user and reset keys, in the same way as all the other boot options. Select "6  [multifreq] Change Z80 type and clock speed", then choose Z80 type, then Z80 clock speed, then press the reset key to restart. The Z80 type just limits the upper frequency available: it's there as an extra step to minimize the chance of sending too high a frequency to an old chip.</p>
+
+<div style="text-align: center;">
+<img src="retroz80mbc23.jpg">
+</div>
+
+<p>I've used my machine with two ceramic Z80 chips from 1979: a Z80 at 2.7MHz and a Z80A at 4MHz. Both of these chips are NMOS, but I haven't had any problems and both ran ZEXALL successfully (if slowly). Still, be aware that, in theory, these chips aren't within the specifications of the Z80-MBC2. But, I mean, <i>look at it</i>.	</p>
+
+<div style="text-align: center;">
+<img src="retroz80mbc24.jpg">
+</div>
+<p><br></p>
+
+<h2>Using a Raspberry Pi as a Z80-MBC2 (Wireless) Terminal</h2>
+<p>You can set up a Raspberry Pi as a terminal for your Z80-MBC2. It works directly with a monitor and keyboard, but also over wifi, so you can use your Z80-MBC2 on computers and other devices connected to the same network. Details can be found on the <a href="retropi.html">Raspberry Pi page</a>.</p>
+
+<div style="text-align: center;">
+<img src="zerowscreens.jpg">
+</div>
+
+<p>And if you want a standalone terminal experience, you can add an old tablet and bluetooth keyboard. Again, details can be found on the <a href="retropi.html">Raspberry Pi page</a>.</p>
+
+<div style="text-align: center;">
+<img src="piwithscreen.jpg">
+</div>
+<p><br></p>
+
+<h2>HP45TERM</h2>
+<p>HP45TERM is a simulator for the HP-45 calculator. Since it was a large project, and since the resulting executables are multi-platform, it has its own page, <a href="retrohp45term.html">here</a>.
+
+<div style="text-align: center;">
+<img src="HP45TERM.jpg">
+</div>
+<p><br></p>
+
+<h2>MEADOW</h2>
+<p>Quick download link: <a href="meadow.zip">Meadow</a></p>
+<p>Meadow grows six different types of flowers on your terminal. Flower types and positions are chosen at random and once planted each flower grows, flowers, dies and slowly disappears. It's actually quite calming to watch. <a href="meadow.zip">The zip file</a> includes C code and the executable. Press the user key to return to the CP/M prompt.
+<div style="text-align: center;">
+<img src="retroz80mbc2meadow.jpg">
+</div>
+<p><br></p>
+
+<h2>Z80CLOCK</h2>
+<p>Quick download link: <a href="z80clock.zip">Z80Clock</a></p>
+<p>Z80Clock is, as the name suggests, a clock which runs on the Z80 and displays time, date and temperature on a terminal. The user can specify the date format to be used, and whether or not to create alerts, which flash the user LED for 30 seconds at regular intervals (so you can get up and walk around, for example). Alerts can be set to occur at intervals between 5 and 300 minutes, and the first alert can occur either after the first interval has past, or on the next quarter, half or full hour. There's also, possibly, an 'Easter egg'. <a href="z80clock.zip">The zip file</a> includes C code and the executable. Press the user key to return to the CP/M prompt.
+<div style="text-align: center;">
+<img src="retroz80mbc2clock.jpg">
+</div>
+<p><br></p>
+
+<h2>MATRIX</h2>
+<p>Quick download link: <a href="matrix.zip">Call trans opt: received.</a></p>
+<p>Exactly what you'd expect. Although somewhat limited by the use of an 80x24 VT100/ansi terminal screen, and a 8MHz-or-less Z80, it valiantly tries to emulate the Matrix 'character drop'. The character strings are of differing lengths, with differing numbers of the lowest few characters brighter than the rest. <a href="matrix.zip">The zip file</a> includes C code and the executable. Press the user key to clear the screen and return to the CP/M prompt.
+<div style="text-align: center;">
+<img src="retroz80mbc2matrix.jpg">
+</div>
+<p><br></p>
+
+<div style="text-align: right;">
+<p><br><br><a href="retroindex.html">Back to the retrocomputing home page.</a>
+</div>
+
+</div>
+</body>
+</html> 

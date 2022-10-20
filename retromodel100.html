@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {background-color:black;color:lightgreen;}
+h1 {text-align:center;}
+h2 {text-align:center;color:green;}
+a {color:orange;}
+</style>
+</head>
+<body>
+
+<div style="max-width:1000px;margin:0 auto">
+
+<h1>Retrocomputing Pages: TRS-80 Model 100</h1>
+
+<div style="text-align: center;">
+<img src="retromodel1001.jpg">
+</div>
+
+<p>Quick download link: <a href="librom.zip">LibROM</a></p>
+
+<p>When I got my <a href="http://www.club100.org/">TRS-80 Model 100</a>, a UK model, I discovered that UK Model 100s don't have a modem. Eh, no big deal. But! what was a big deal is that UK ROMs have all their routines in different locations to American ROMS, so nothing which uses ROM calls will run on them; REXCPM isn't compatible, etc. Anyway, fast forward and I've learned about the Model 100, picked up 8085 assembly, got to work on Ken Pettit's <a href="http://www.club100.org/memfiles/index.php?&direction=0&order=&directory=Ken%20Pettit/M100%20ROM%20Disassembly">annotated ROM listing</a>, disassembled Ron Wiesen's 'Teeny' — with helpful pointers from <a href="https://bitchin100.com/">Steve Adolph</a> — and hex-edited my way to LibROM.</p>
+
+<p>Click <a href="librom.zip">here</a> to download the zip file, which contains a .bin file to be program an EPROM and a .asm file which contains a heavily annotated assembly listing of the ROM. Although LibROM was designed for non-American machines, it should work in American Model 100s, too. (Note, however, that early American models used non-standard pins for the ROM chip so it may not be trivial to replace it. Also, you might want to back out the change of date format, for American use.)</p>
+
+<p>I used a XGecu TL866II Plus EPROM programmer, which did the job without any problems. I programmed the ROM onto a Winbond W27E257 EEPROM, which works fine in the machine, and which has the advantage of being electronically erasable and reprogrammable.</p>
+
+<div style="text-align: center;">
+<img src="retromodel1003.jpg">
+</div>
+
+<p>I haven't had time to test the ROM as thoroughly as I'd like. Everything seems fine, but I wouldn't use it for mission-critical Model 100 operations. It works in <a href="https://sourceforge.net/projects/virtualt/">VirtualT</a>, although there seems to be a VirtualT bug which prevents Teeny+ for loading large files: VirtualT doesn't refill the loading buffer once the first filled buffer has been emptied. (I have loaded large files on the actual Model 100 using Teeny+.)</p>
+
+
+<p><br><br><b>Description</b></p>
+<p>LibROM started as an adaptation of the Model 100 American ROM for UK (and other non-American) machines which lack a modem, so that software and external ROMs which make calls to ROM routines will work. It grew from that to include other bug fixes and enhancements - including in-ROM disk management - replacing modem, address and schedule code to do so.</p>
+
+<div style="text-align: center;">
+<img src="retromodel1004.jpg">
+</div>
+
+<p><b>Communications</b></p>
+<ul>
+<li>Removal of modem functions: LibROM always sets ports to use RS-232 and not the modem. If a STAT is entered beginning with 'M' it is interpreted and stored as the same stat for RS-232 with a baud rate of 300. For example, "STAT M8N1E" results in a STAT of 38N1E. The CALL (i.e. dialing) function has been removed.</li>
+<li>The ADDRSS and SCHEDL functions are removed, to make room for disk functionality.</li>
+<li>Changes to TELCOM: the "Find" (F1) and "Call" (F2) instructions are replaced with "File" (F1), to display a list of files in memory, and "Free" (F2), to display free memory.</li>
+</ul>
+
+<p><b>Localization</b></p>
+<ul>
+<li>DATE$ processes dates in UK (non-American) DD/MM/YY format (as described in the UK manual), and the MENU screen shows the date in that format. (The storage format of the date in memory is unaffected.)</li>
+</ul>
+
+<p><b>Display</b></p>
+<ul>
+<li>The MENU screen top line now shows: time, date, day, a sound on/off icon, the current STAT settings and a reassuring message</li>
+<li>Character 88H (136) is changed from a sans serif 'i' to 'π'. This matches the (incorrect) UK version of the "Model 100 Quick Reference Guide" and the Model 102 character set, and seems more useful.</li>
+<li>The text for July is changed from "JLY" to the more usual (and Model 102's) "JUL".</li>
+<li>The opening-screen text in BASIC shows which version of LibROM is running.</li>
+<li>The capitalization of "Bytes free" is standardized to "bytes free".</li>
+</ul>
+
+<div style="text-align: center;">
+<img src="retromodel1002.jpg">
+</div>
+
+<p><b>Sound</b></p>
+<ul>
+<li>Global SOUND ON / SOUND OFF: these functions now turn all sound on/off, not just cassette and modem sounds. This includes system beeps. Run times are unaffacted: a 2 minute tune with sound on will be two minutes of silence with sound off. The MENU-screen sound icon is changed accordingly.</li>
+</ul>
+
+<p><b>The PRINT Button (Sound and Scrolling)</b></p>
+<ul>
+<li>The PRINT button is repurposed to toggle sound on and off. This does not need to be done when on the MENU screen. The MENU-screen sound icon is changed accordingly. </li>
+<li>Shift+PRINT toggles now toggles scrolling on and off. This does not need to be done when on the MENU screen. Note that many applications, including the MENU screen, also turn scrolling on or off, so settings may change without use of shift+PRINT.</li>
+</ul>
+
+<p><b>Bug Fixes</b></p>
+<ul>
+<li>The ATN function is fixed to use correct (Model 102) coefficient in calculations.</li>
+<li>The "search for file" ROM routine is fixed to allow searching for 6+2-character filenames, not just 4+2.</li>
+</ul>
+
+<p><b>Disk Management: Teeny+</b></p>
+Ron Wiesen's Teeny disk management software is implemented in ROM and augmented to create Teeny+. An entry for Teeny+ is added to the MENU screen.
+Teeny+ makes the following changes to Teeny:
+<ul>
+<li>the command memory is cleared before each entry to prevent unwanted results</li>
+<li>there is no longer a need to add spaces to filenames shorter than 6+2 characters (e.g. the file HI.BA can be loaded using "L HI.BA" rather than "L HIssss.BA", where 's' is a space)</li>
+<li>commands are automatically capitalized so a mixture of lower- and upper-case characters can be used on entry (e.g. "S fred.do", "s FRED.DO", "S fReD.dO" are all valid and all execute "S FRED.DO")</li>
+<li>there is no longer a need to supply a dummy filename for commands which do not require a filename</li>
+<li>Teeny+ sets the communications STAT to 98N1D when executed, and displays it to the user, but saves the existing system STAT beforehand, so that other STAT values can be used in Teeny+, if required</li>
+<li>the displayed STAT value has a suffix of 'd' if a DSR check is required, and 'x' if not</li>
+<li>the 'B' command toggles between 98N1D and the saved system STAT, and displays the newly active STAT</li>
+<li>exiting Teeny+ restores the system to the saved system STAT (rather than leaving as 98N1D)</li>
+<li>the requirement for a DSR check can be toggled with the 'D' command; the new setting is displayed</li>
+<li>commands have been added to list files in memory ('F') and display empty (free) space in memory ('E')</li>
+<li>the prompt text has been updated to reflect changes from Teeny</li>
+<li>the error message text has been updated to report "msg" rather than "Err" as some messages are not errors</li>
+<li>the K, L & S functions now report an "OK" message when executed successfully - the command to exit Teeny+ is now 'M' (for "MENU")</li>
+<li>the command to check for the existence of a file on disk is now 'C' (for "Check") (In fact, just like Teeny, Teeny+ interprets any command which is not K, L, S, B, D, E, F or M as "check file on disk".)</li>
+</ul>
+<p style="margin-left: 40px">full list of commands:</p>
+<ul style="margin-left: 40px">
+<li>C file - check if file exists on drive</li>
+<li>K file - kill (delete) file on drive</li>
+<li>L file - load file from drive to local memory </li>
+<li>S file - save file from local memory to drive</li>
+<li>B - toggle baud and other settings (STAT) between saved system STAT and 98N1D</li>
+<li>D - toggle requirement for DSR on ('d') and off ('x')</li>
+<li>E - display empty (free) space in local memory</li>
+<li>F - display list of files in local memory</li>
+<li>M - return to MENU (exit Teeny+)</li>
+</ul>
+
+<p><br><br></p>
+
+<div style="text-align: center;">
+<img src="retromodel1005.jpg">
+</div>
+
+<div style="text-align: right;">
+<p><br><br><a href="retroindex.html">Back to the retrocomputing home page.</a>
+</div>
+
+</div>
+</body>
+</html> 

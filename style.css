@@ -1,0 +1,41 @@
+/* Styles */
+html, 
+body {
+    height: 100%;
+}
+
+#main-page{
+    padding:60px 20px 60px;
+    min-height: 100%; 
+}
+
+body{
+    height: 100%;
+	text-align:center;
+}
+
+#main-content{
+	max-width:600px;
+	margin:0 auto;
+}
+
+#main-content img{
+    max-width: 100%;
+    height: auto;
+}
+
+#main-image{
+	margin-bottom:20px;
+}
+
+#main-headline{
+	margin-top: 0;
+}
+
+#main-description{
+}
+
+#main-footer{
+
+}
+
