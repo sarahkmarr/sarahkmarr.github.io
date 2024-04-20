@@ -23,8 +23,8 @@ a {color:orange;}
 <p><br></p>
 
 <h2>IOS for Older Z80 Processors</h2>
-<p>Quick download link: <a href="S220718-R240620_IOS-Z80-MBC2-MultiFreq-Final.ino">Old School IOS</a></p>
-<p>The Z80-MBC2 is designed to work with "modern" Z80 chips, which are CMOS and running at 8MHz (with an option to run at 4MHz). <a href="S220718-R240620_IOS-Z80-MBC2-MultiFreq-Final.ino">This</a> is a version of the IOS Arduino sketch S220718-R240620_IOS-Z80-MBC2 which increases the number of available frequency dividers, so that older Z80 chips can be used. (It also implements the serial rx buffer change necessary for using xmodem to transfer files to and from the machine.)</p>
+<p>Quick download link: <a href="S220718-R290823_IOS-Z80-MBC2-MultiFreq.ino">Old School IOS</a></p>
+<p>The Z80-MBC2 is designed to work with "modern" Z80 chips, which are CMOS and running at 8MHz (with an option to run at 4MHz). <a href="S220718-R290823_IOS-Z80-MBC2-MultiFreq.ino">This</a> is a version of the IOS Arduino sketch S220718-R290823_IOS-Z80-MBC2 which increases the number of available frequency dividers, so that older Z80 chips can be used.</p>
 
 <div style="text-align: center;">
 <img src="retroz80mbc22.jpg">
@@ -41,6 +41,13 @@ a {color:orange;}
 <div style="text-align: center;">
 <img src="retroz80mbc24.jpg">
 </div>
+
+<p>Additional note: the Z80-MBC2 is usually built with a 16MHz crystal, but it can use a 20MHz crystal instead. This increases the reported frequencies, so the multifrequency sketch displays a warning message if it detects a 20MHz crystal.</p>
+
+<div style="text-align: center;">
+<img src="retroz80mbc23a.jpg">
+</div>
+
 <p><br></p>
 
 <h2>Using a Raspberry Pi as a Z80-MBC2 (Wireless) Terminal</h2>
